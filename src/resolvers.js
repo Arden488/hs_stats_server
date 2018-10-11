@@ -1,6 +1,7 @@
 import { GraphQLScalarType } from 'graphql'
 import { Kind } from 'graphql/language'
 import { findIndex as _findIndex } from 'lodash'
+import 'regenerator-runtime/runtime'
 
 export default {
   Date: new GraphQLScalarType({
