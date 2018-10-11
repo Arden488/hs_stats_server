@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const Deck = mongoose.model('Deck', {
   name: String,
-  class: String,
+  charClass: String,
   code: String
 })
 
