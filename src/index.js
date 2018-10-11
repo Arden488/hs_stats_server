@@ -24,7 +24,7 @@ mongoose.connect(
   `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.SERVER_ADDR}`
 )
 
-const PORT = 3333
+const PORT = process.env.PORT || 3333
 
 const app = express()
 
