@@ -5,7 +5,8 @@ type Archetype {
   _id: String
   name: String
   charClass: String
-  code: String
+  code: String,
+  key_features: String
 }
 type Game {
   _id: String,
