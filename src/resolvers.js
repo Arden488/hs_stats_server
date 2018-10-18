@@ -33,6 +33,13 @@ export default {
       const archetype = await Archetype.findById(args.id)
       return archetype
     },
+    getArchetypeByClass: async (parent, args, { Archetype }) => {
+      const archetypes = await Archetype.find(args)
+      return archetypes.map(x => {
+        x._id = x._id.toString()
+        return x
+      })
+    },
     allWinrates: async (parent, args, { Winrate }) => {
       const winrates = await Winrate.find(args)
       return winrates.map(x => {
