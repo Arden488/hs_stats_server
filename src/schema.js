@@ -67,7 +67,7 @@ type Query {
   ): Archetype!,
   getArchetypeByClass(
     charClass: String!
-  ): Archetype!,
+  ): [Archetype]!,
   allDecks(
     name: String,
     charClass: String,
