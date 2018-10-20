@@ -53,7 +53,7 @@ input Card {
   cardId: String!,
   cardName: String!
 }
-input ClassArchetype {
+Output ClassArchetype {
   _id: String!,
   name: String!,
   charClass: String!,
