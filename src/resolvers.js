@@ -33,10 +33,10 @@ export default {
         hunter: [],
         warlock: [],
         mage: [],
-        priest: [],
-        total: 0
+        priest: []
       }
       const archetypes = await Archetype.find(args)
+      console.log(archetypes)
       archetypes.forEach(x => {
         x._id = x._id.toString()
         archetypesData[x.charClass][x._id] = {
