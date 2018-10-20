@@ -41,29 +41,29 @@ type Deck {
   charClass: String,
   code: String
 }
-type ClassArchetypes {
+
+input ClassArchetype {
   name: String,
   charClass: String,
   code: String,
   key_features: String,
   cards: [Card]
 }
-
 input WinrateCardInput {
   cardId: String!
 }
 
 type Query {
   allArchetypes(
-    druid: [ClassArchetypes],
-    warrior: [ClassArchetypes],
-    shaman: [ClassArchetypes],
-    rogue: [ClassArchetypes],
-    paladin: [ClassArchetypes],
-    hunter: [ClassArchetypes],
-    warlock: [ClassArchetypes],
-    mage: [ClassArchetypes],
-    priest: [ClassArchetypes]
+    druid: [ClassArchetype],
+    warrior: [ClassArchetype],
+    shaman: [ClassArchetype],
+    rogue: [ClassArchetype],
+    paladin: [ClassArchetype],
+    hunter: [ClassArchetype],
+    warlock: [ClassArchetype],
+    mage: [ClassArchetype],
+    priest: [ClassArchetype]
   ): [Archetype!]!,
   allWinrates(
     deckId: String,
