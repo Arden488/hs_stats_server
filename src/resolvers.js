@@ -44,7 +44,8 @@ export default {
           name: x.name,
           code: x.code,
           key_features: x.key_features,
-          cards: fetchAllCards(x.code)
+          cards: fetchAllCards(x.code),
+          __v: 0
         }
       })
       return archetypesData
