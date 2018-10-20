@@ -1,6 +1,7 @@
 import { GraphQLScalarType } from 'graphql'
 import { Kind } from 'graphql/language'
 import { findIndex as _findIndex } from 'lodash'
+import { fetchAllCards } from './helpers'
 import 'regenerator-runtime/runtime'
 
 export default {
@@ -23,11 +24,27 @@ export default {
 
   Query: {
     allArchetypes: async (parent, args, { Archetype }) => {
+      let archetypesData = {
+        druid: [],
+        warrior: [],
+        shaman: [],
+        rogue: [],
+        paladin: [],
+        hunter: [],
+        warlock: [],
+        mage: [],
+        priest: [],
+        total: 0
+      }
       const archetypes = await Archetype.find(args)
-      return archetypes.map(x => {
+      archetypes.forEach(x => {
         x._id = x._id.toString()
-        return x
+        archetypesData[x.charClass][x._id] = {
+          ...x,
+          cards: fetchAllCards(x.code)
+        }
       })
+      return archetypesData
     },
     getArchetype: async (parent, args, { Archetype }) => {
       const archetype = await Archetype.findById(args.id)
