@@ -2,11 +2,7 @@ import { decode } from 'deckstrings'
 import HearthstoneJSON from 'hearthstonejson-client'
 import { find } from 'lodash'
 
-const hsjson = new HearthstoneJSON()
-const hsJsonData = hsjson.get('26996')['hsjson-26996_enUS']
-
-function getCardById(id) {
-  const data = hsJsonData
+function getCardById(id, data) {
   const cards = JSON.parse(data).cards
 
   const card = find(cards, { dbfId: id })
@@ -25,11 +21,15 @@ function fetchAllCards(code) {
 }
 
 function fetchDeckCards(cardsIds) {
-  const deckCards = cardsIds.map(card => {
-    const cardInfo = getCardById(card[0])
-    cardInfo.count = card[1]
+  let deckCards = []
+  const hsjson = new HearthstoneJSON()
 
-    return cardInfo
+  hsjson.get(13619, function(cards) {
+    deckCards = cardsIds.map(card => {
+      const cardInfo = getCardById(card[0], cards)
+      cardInfo.count = card[1]
+      return cardInfo
+    })
   })
 
   return deckCards
