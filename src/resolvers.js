@@ -36,7 +36,6 @@ export default {
         priest: []
       }
       const archetypes = await Archetype.find(args)
-      console.log(archetypes)
       archetypes.forEach(x => {
         x._id = x._id.toString()
         archetypesData[x.charClass][x._id] = {
@@ -44,8 +43,7 @@ export default {
           name: x.name,
           code: x.code,
           key_features: x.key_features,
-          cards: fetchAllCards(x.code),
-          __v: 0
+          cards: fetchAllCards(x.code)
         }
       })
       return archetypesData
