@@ -8,6 +8,17 @@ type Archetype {
   code: String,
   key_features: String
 }
+type ArchetypesByClass {
+  druid: [ClassArchetype],
+  warrior: [ClassArchetype],
+  shaman: [ClassArchetype],
+  rogue: [ClassArchetype],
+  paladin: [ClassArchetype],
+  hunter: [ClassArchetype],
+  warlock: [ClassArchetype],
+  mage: [ClassArchetype],
+  priest: [ClassArchetype]
+}
 type Game {
   _id: String,
   deckId: String,
@@ -65,7 +76,7 @@ type Query {
     warlock: [ClassArchetype],
     mage: [ClassArchetype],
     priest: [ClassArchetype]
-  ): [Archetype!]!,
+  ): [ArchetypesByClass!]!,
   allWinrates(
     deckId: String,
     opponentArchetypeId: String,
