@@ -31,11 +31,22 @@ type Winrate {
   games: Int,
   cards: [WinrateCard]
 }
+type Card {
+  cardId: String!,
+  cardName: String!
+}
 type Deck {
   _id: String,
   name: String,
   charClass: String,
   code: String
+}
+type ClassArchetypes {
+  name: String,
+  charClass: String,
+  code: String,
+  key_features: String,
+  cards: [Card]
 }
 
 input WinrateCardInput {
@@ -44,10 +55,15 @@ input WinrateCardInput {
 
 type Query {
   allArchetypes(
-    name: String,
-    charClass: String,
-    code: String,
-    key_features: String
+    druid: [ClassArchetypes],
+    warrior: [ClassArchetypes],
+    shaman: [ClassArchetypes],
+    rogue: [ClassArchetypes],
+    paladin: [ClassArchetypes],
+    hunter: [ClassArchetypes],
+    warlock: [ClassArchetypes],
+    mage: [ClassArchetypes],
+    priest: [ClassArchetypes]
   ): [Archetype!]!,
   allWinrates(
     deckId: String,
