@@ -31,10 +31,6 @@ type Winrate {
   games: Int,
   cards: [WinrateCard]
 }
-type Card {
-  cardId: String!,
-  cardName: String!
-}
 type Deck {
   _id: String,
   name: String,
@@ -42,10 +38,15 @@ type Deck {
   code: String
 }
 
+input Card {
+  cardId: String!,
+  cardName: String!
+}
 input ClassArchetype {
-  name: String,
-  charClass: String,
-  code: String,
+  _id: String!,
+  name: String!,
+  charClass: String!,
+  code: String!,
   key_features: String,
   cards: [Card]
 }
