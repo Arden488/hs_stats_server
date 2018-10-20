@@ -40,7 +40,10 @@ export default {
       archetypes.forEach(x => {
         x._id = x._id.toString()
         archetypesData[x.charClass][x._id] = {
-          ...x,
+          id: x._id,
+          name: x.name,
+          code: x.code,
+          key_features: x.key_features,
           cards: fetchAllCards(x.code)
         }
       })
