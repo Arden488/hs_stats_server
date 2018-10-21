@@ -1,38 +1,37 @@
 import { decode } from 'deckstrings'
-import HearthstoneJSON from 'hearthstonejson-client'
-import { find } from 'lodash'
+import { find as _find } from 'lodash'
+import fetch from 'node-fetch'
 
 function getCardById(id, data) {
-  const cards = JSON.parse(data).cards
-
-  const card = find(cards, { dbfId: id })
-
-  return card
+  const card = _find(data, { dbfId: id })
+  return { cost: card.cost, dbfId: card.dbfId, id: card.id, name: card.name, type: card.type }
 }
 
 function decodeDeck(deckstring) {
   return decode(deckstring)
 }
 
-function fetchAllCards(code) {
+function fetchAllCards(code, cardsData) {
   const deckData = decodeDeck(code)
-  const cards = fetchDeckCards(deckData.cards)
-  return cards
+
+  return updateCardsData(deckData.cards, cardsData)
 }
 
-function fetchDeckCards(cardsIds) {
-  let deckCards = []
-  const hsjson = new HearthstoneJSON()
+function updateCardsData(cardsIds, cardsData) {
+  return cardsIds.map(card => {
+    const cardInfo = getCardById(card[0], cardsData)
+    cardInfo.count = card[1]
+    return cardInfo
+  })
+}
 
-  hsjson.get(13619, function(cards) {
-    deckCards = cardsIds.map(card => {
-      const cardInfo = getCardById(card[0], cards)
-      cardInfo.count = card[1]
-      return cardInfo
-    })
+function fetchDeckCards() {
+  const request = fetch('https://api.hearthstonejson.com/v1/27358/enUS/cards.json', {
+    method: 'GET',
+    mode: 'cors'
   })
 
-  return deckCards
+  return request
 }
 
-export { fetchAllCards }
+export { fetchAllCards, fetchDeckCards }
