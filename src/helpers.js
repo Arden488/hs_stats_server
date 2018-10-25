@@ -4,7 +4,13 @@ import fetch from 'node-fetch'
 
 function getCardById(id, data) {
   const card = _find(data, { dbfId: id })
-  return { cost: card.cost, dbfId: card.dbfId, id: card.id, name: card.name, type: card.type }
+  return {
+    cost: card.cost,
+    dbfId: card.dbfId,
+    id: card.id,
+    name: card.name,
+    type: card.type
+  }
 }
 
 function decodeDeck(deckstring) {
@@ -26,10 +32,13 @@ function updateCardsData(cardsIds, cardsData) {
 }
 
 function fetchDeckCards() {
-  const request = fetch('https://api.hearthstonejson.com/v1/27358/enUS/cards.json', {
-    method: 'GET',
-    mode: 'cors'
-  })
+  const request = fetch(
+    'https://api.hearthstonejson.com/v1/27358/enUS/cards.json',
+    {
+      method: 'GET',
+      mode: 'cors'
+    }
+  )
 
   return request
 }
