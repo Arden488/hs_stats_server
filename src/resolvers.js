@@ -25,14 +25,24 @@ export default {
   Query: {
     allArchetypes: async (parent, args, { Archetype }) => {
       const archetypes = await Archetype.find(args)
+      return archetypes.map(x => {
+        x._id = x._id.toString()
+        return x
+      })
+    },
+    getArchetype: async (parent, args, { Archetype }) => {
+      const archetype = await Archetype.findById(args.id)
+      return archetype
+    },
+    allOppDecks: async (parent, args, { OppDeck }) => {
+      const oppDecks = await OppDeck.find(args)
       const cardsDataReq = fetchDeckCards()
-      
       return cardsDataReq
         .then(res => {
           return res.json()
         })
         .then(data => {
-          return archetypes.map(x => {
+          return oppDecks.map(x => {
             x._id = x._id.toString()
             x.cards = fetchAllCards(x.code, data)
             return x
@@ -40,13 +50,13 @@ export default {
         })
         .catch(e => console.log(e))
     },
-    getArchetype: async (parent, args, { Archetype }) => {
-      const archetype = await Archetype.findById(args.id)
-      return archetype
+    getOppDeck: async (parent, args, { OppDeck }) => {
+      const oppDeck = await OppDeck.findById(args.id)
+      return oppDeck
     },
-    getArchetypeByClass: async (parent, args, { Archetype }) => {
-      const archetypes = await Archetype.find(args)
-      return archetypes.map(x => {
+    getOppDeckByClass: async (parent, args, { OppDeck }) => {
+      const oppDecks = await OppDeck.find(args)
+      return oppDecks.map(x => {
         x._id = x._id.toString()
         return x
       })
@@ -78,10 +88,10 @@ export default {
     }
   },
   Mutation: {
-    createArchetype: async (parent, args, { Archetype }) => {
-      const archetype = await new Archetype(args).save()
-      archetype._id = archetype._id.toString()
-      return archetype
+    createOppDeck: async (parent, args, { OppDeck }) => {
+      const oppDeck = await new OppDeck(args).save()
+      oppDeck._id = oppDeck._id.toString()
+      return oppDeck
     },
     createGame: async (parent, args, { Game }) => {
       const game = await new Game(args).save()
@@ -96,12 +106,12 @@ export default {
     updateWinrate: async (parent, args, { Winrate }) => {
       let winrate = await Winrate.findOne({
         deckId: args.deckId,
-        opponentArchetypeId: args.opponentArchetype
+        opponentDeckId: args.opponentDeck
       })
       if (!winrate) {
         winrate = await new Winrate({
           deckId: args.deckId,
-          opponentArchetypeId: args.opponentArchetype,
+          opponentDeckId: args.opponentDeck,
           opponentClass: args.opponentClass,
           games: 0,
           wins: 0,
