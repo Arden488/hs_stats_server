@@ -9,6 +9,7 @@ import typeDefs from './schema'
 import resolvers from './resolvers'
 import Deck from './models/decks'
 import Game from './models/games'
+import OppDeck from './models/oppdecks'
 import MulliganWR from './models/mulligan_wr'
 import Winrate from './models/winrates'
 import Archetype from './models/archetypes'
@@ -38,6 +39,7 @@ app.use(
       Archetype,
       Deck,
       Game,
+      OppDeck,
       MulliganWR,
       Winrate
     }
