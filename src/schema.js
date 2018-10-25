@@ -11,6 +11,7 @@ type Archetype {
 }
 type CardA {
   cost: Int, 
+  count: Int,
   dbfId: Int, 
   id: String, 
   name: String, 
@@ -47,7 +48,8 @@ type Deck {
 }
 
 input Card {
-  cost: Int, 
+  cost: Int,
+  count: Int!, 
   dbfId: Int!, 
   id: String!, 
   name: String!, 
