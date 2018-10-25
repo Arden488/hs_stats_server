@@ -1,13 +1,19 @@
 export default `
 scalar Date
 
-type Archetype {
-  _id: String
-  name: String
-  charClass: String
+type OppDeck {
+  _id: String,
+  name: String,
+  charClass: String,
+  archetypeId: String,
   code: String,
   key_features: String,
   cards: [CardA]
+}
+type Archetype {
+  name: String,
+  charClass: String,
+  key_features: String
 }
 type CardA {
   cost: Int, 
@@ -22,7 +28,7 @@ type Game {
   deckId: String,
   datetime: Date,
   opponentClass: String,
-  opponentArchetype: String,
+  opponentDeck: String,
   outcome: String
 }
 type WinrateCard {
@@ -33,7 +39,7 @@ type WinrateCard {
 type Winrate {
   _id: String,
   deckId: String,
-  opponentArchetypeId: String,
+  opponentDeckId: String,
   opponentClass: String,
   wins: Int,
   losses: Int,
@@ -65,13 +71,23 @@ type Query {
     _id: String,
     name: String,
     charClass: String,
+    key_features: String
+  ): [Archetype!]!,
+  getArchetype(
+    id: String!
+  ): Archetype!,
+  allOppDecks(
+    _id: String,
+    name: String,
+    charClass: String,
+    archetypeId: String,
     code: String,
     key_features: String,
     cards: [Card]
-  ): [Archetype!]!,
+  ): [OppDeck!]!,
   allWinrates(
     deckId: String,
-    opponentArchetypeId: String,
+    opponentDeckId: String,
     opponentClass: String,
     wins: Int,
     losses: Int,
@@ -82,12 +98,12 @@ type Query {
     deckId: String,
     opponentClass: String
   ): [Winrate!]!,
-  getArchetype(
+  getOppDeck(
     id: String!
-  ): Archetype!,
-  getArchetypeByClass(
+  ): OppDeck!,
+  getOppDeckByClass(
     charClass: String!
-  ): [Archetype]!,
+  ): [OppDeck]!,
   allDecks(
     name: String,
     charClass: String,
@@ -99,18 +115,24 @@ type Query {
 }
 
 type Mutation {
-  createArchetype(
+  createOppDeck(
     name: String!,
     charClass: String!,
+    archetypeId: String!,
     code: String!,
     key_features: String!
-  ): Archetype!
+  ): OppDeck!
   createGame(
     deckId: String!,
     opponentClass: String!,
     opponentArchetype: String!,
     outcome: String!
   ): Game!
+  createArchetype(
+    name: String!,
+    charClass: String!,
+    key_features: String
+  ): Archetype!
   updateWinrate(
     deckId: String!,
     opponentClass: String!, 
