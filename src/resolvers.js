@@ -35,7 +35,7 @@ export default {
       return archetype
     },
     allOppDecks: async (parent, args, { OppDeck }) => {
-      const oppDecks = await OppDeck.find(args)
+      const oppDecks = await OppDeck.find(args).populate('archetypeId')
       const cardsDataReq = fetchDeckCards()
       return cardsDataReq
         .then(res => {
@@ -51,7 +51,7 @@ export default {
         .catch(e => console.log(e))
     },
     getOppDeck: async (parent, args, { OppDeck }) => {
-      const oppDeck = await OppDeck.findById(args.id)
+      const oppDeck = await OppDeck.findById(args.id).populate('archetypeId')
       return oppDeck
     },
     getOppDeckByClass: async (parent, args, { OppDeck }) => {
