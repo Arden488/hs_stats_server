@@ -5,12 +5,13 @@ type OppDeck {
   _id: String,
   name: String,
   charClass: String,
-  archetypeId: String,
+  archetypeId: Archetype,
   code: String,
   key_features: String,
   cards: [CardA]
 }
 type Archetype {
+  _id: String,
   name: String,
   charClass: String,
   key_features: String
@@ -62,6 +63,12 @@ input Card {
   type: String!
 }
 
+input ArchetypeInput {
+  name: String,
+  charClass: String,
+  key_features: String
+}
+
 input WinrateCardInput {
   cardId: String!
 }
@@ -80,7 +87,7 @@ type Query {
     _id: String,
     name: String,
     charClass: String,
-    archetypeId: String,
+    archetypeId: ArchetypeInput,
     code: String,
     key_features: String,
     cards: [Card]
