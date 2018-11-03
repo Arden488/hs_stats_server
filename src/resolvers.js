@@ -3,6 +3,7 @@ import { Kind } from 'graphql/language'
 import { findIndex as _findIndex } from 'lodash'
 import { fetchAllCards, fetchDeckCards } from './helpers'
 import 'regenerator-runtime/runtime'
+import util from 'util'
 
 export default {
   Date: new GraphQLScalarType({
@@ -92,6 +93,27 @@ export default {
       const oppDeck = await new OppDeck(args).save()
       oppDeck._id = oppDeck._id.toString()
       return oppDeck
+    },
+    updateOppDeck: async (parent, args, { OppDeck }) => {
+      const oppDeck = await OppDeck.findById(args.id)
+      oppDeck.name = args.name
+      oppDeck.code = args.code
+      oppDeck.archetypeId = args.archetypeId
+      oppDeck.key_features = args.key_features
+      oppDeck.charClass = args.charClass
+      return oppDeck.save()
+    },
+    createArchetype: async (parent, args, { Archetype }) => {
+      const archetype = await new Archetype(args).save()
+      archetype._id = archetype._id.toString()
+      return archetype
+    },
+    updateArchetype: async (parent, args, { Archetype }) => {
+      const archetype = await Archetype.findById(args.id)
+      archetype.name = args.name
+      archetype.key_features = args.key_features
+      archetype.charClass = args.charClass
+      return archetype.save()
     },
     createGame: async (parent, args, { Game }) => {
       const game = await new Game(args).save()

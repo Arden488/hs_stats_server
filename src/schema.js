@@ -122,28 +122,42 @@ type Query {
 }
 
 type Mutation {
+  updateOppDeck(
+    id: String!,
+    name: String!,
+    charClass: String!,
+    archetypeId: String!,
+    code: String!,
+    key_features: String
+  ): OppDeck!
   createOppDeck(
     name: String!,
     charClass: String!,
     archetypeId: String!,
     code: String!,
-    key_features: String!
+    key_features: String
   ): OppDeck!
-  createGame(
-    deckId: String!,
-    opponentClass: String!,
-    opponentArchetype: String!,
-    outcome: String!
-  ): Game!
+  updateArchetype(
+    id: String!,
+    name: String!,
+    charClass: String!,
+    key_features: String
+  ): Archetype!
   createArchetype(
     name: String!,
     charClass: String!,
     key_features: String
   ): Archetype!
+  createGame(
+    deckId: String!,
+    opponentClass: String!,
+    opponentDeck: String!,
+    outcome: String!
+  ): Game!
   updateWinrate(
     deckId: String!,
     opponentClass: String!, 
-    opponentArchetype: String!,
+    opponentDeck: String!,
     outcome: String!,
     cards: [WinrateCardInput]
   ): Winrate!

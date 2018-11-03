@@ -4,7 +4,7 @@ const Game = mongoose.model('Game', {
   deckId: String,
   datetime: { type: Date, default: Date.now },
   opponentClass: String,
-  opponentArchetype: String,
+  opponentDeck: String,
   outcome: String
 })
 
