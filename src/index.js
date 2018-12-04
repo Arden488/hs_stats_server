@@ -22,7 +22,9 @@ const schema = makeExecutableSchema({
 })
 
 mongoose.connect(
-  `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.SERVER_ADDR}`
+  `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${
+    process.env.SERVER_ADDR
+  }`
 )
 
 const PORT = process.env.PORT || 3333
