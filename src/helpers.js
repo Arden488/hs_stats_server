@@ -33,7 +33,7 @@ function updateCardsData(cardsIds, cardsData) {
 
 function fetchDeckCards() {
   const request = fetch(
-    'https://api.hearthstonejson.com/v1/27358/enUS/cards.json',
+    'https://api.hearthstonejson.com/v1/latest/enUS/cards.json',
     {
       method: 'GET',
       mode: 'cors'
